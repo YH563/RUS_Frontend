@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\SRTP_Robot\\Codes\\rus-frontend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DAEDF88A-273C-43A7-A579-EBC638FF9D4E}|RUS_Frontend.csproj|e:\\srtp_robot\\codes\\rus-frontend\\src\\rus_sim_socket\\socket_core.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DAEDF88A-273C-43A7-A579-EBC638FF9D4E}|RUS_Frontend.csproj|solutionrelative:src\\rus_sim_socket\\socket_core.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 225,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "socket_core.cs",
+              "DocumentMoniker": "E:\\SRTP_Robot\\Codes\\rus-frontend\\src\\rus_sim_socket\\socket_core.cs",
+              "RelativeDocumentMoniker": "src\\rus_sim_socket\\socket_core.cs",
+              "ToolTip": "E:\\SRTP_Robot\\Codes\\rus-frontend\\src\\rus_sim_socket\\socket_core.cs",
+              "RelativeToolTip": "src\\rus_sim_socket\\socket_core.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-14T07:12:58.021Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
