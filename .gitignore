@@ -16,7 +16,7 @@ obj/
 *.suo
 
 # Godot 插件（如果是通过编辑器安装的）
-addons/godot-git-plugin/
+addons/
 
 # 系统垃圾文件
 .DS_Store
