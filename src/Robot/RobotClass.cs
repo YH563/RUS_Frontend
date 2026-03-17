@@ -5,25 +5,27 @@ namespace RUS_Frontend.src.Robot
 {
     public partial class RobotClass : Node
     {
-        // URDF 解析器对象
-        private RobotParser parser_;
+        // URDF 文件路径
         [Export(PropertyHint.File, "*.urdf")]
-        public string urdfPath_ { get; set; } = string.Empty;
-
+        public string URDFPath { get; set; }
         // URDF 解析结果保存
+        public RobotData RobotData { get; set; } = new RobotData();
 
         public override void _Ready()
         {
-            if (!string.IsNullOrEmpty(urdfPath_))
-            {
-                parser_.urdfPath_ = urdfPath_;
-                parser_.UrdfParser(this);
-            }
-            else
-            {
-                GD.PrintErr("加载URDF失败！");
-            }
+            
+        }
 
+        /// <summary>
+        /// 加载模型
+        /// </summary>
+        public void LoadModel()
+        {
+            if (!string.IsNullOrEmpty(URDFPath))
+            {
+                RobotData = RobotParser.Parse(URDFPath);
+                RobotData.Show();
+            }
         }
     }
 }
