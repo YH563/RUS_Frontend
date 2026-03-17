@@ -1,15 +1,16 @@
 using Godot;
 using System;
+using System.Xml;
 
-public partial class RobotParser : Node
+namespace RUS_Frontend.src.Robot
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    class RobotParser
+    {
+        // 解析的 URDF 文件路径
+        public string urdfPath_ { get; set; }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+        public void UrdfParser(RobotClass robot)
+        {
+        }
+    }
 }
