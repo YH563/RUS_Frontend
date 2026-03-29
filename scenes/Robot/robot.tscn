@@ -5,3 +5,4 @@
 [node name="Robot" type="Node3D" unique_id=909925622]
 script = ExtResource("1_yacrl")
 URDFPath = "res://assets/robot_description/fairino3_v6.urdf"
+MeshDir = "res://assets/robot_description/meshes/fairino3_v6_gltf"

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Godot;
 
-namespace RUS_Frontend.src.Robot
+namespace SRC.Robot
 {
     /// <summary>
     /// 原点变换
@@ -18,7 +19,7 @@ namespace RUS_Frontend.src.Robot
 
     /// <summary>
     /// 网络模型
-    /// </summary>
+    /// </summary>  
     public class Geometry
     {
         public string MeshFilename { get; set; }
@@ -84,11 +85,23 @@ namespace RUS_Frontend.src.Robot
         public List<Joint> Joints { get; set; } = new List<Joint>();
 
         /// <summary>
-        /// 进行坐标变换，以保证模型显示正确
+        /// 根据名字查找对应的关节
         /// </summary>
-        public void OriginTransform()
+        /// <param name="jointName">关节名字</param>
+        /// <returns></returns>
+        public Joint SearchJoint(string jointName)
         {
+            return Joints.FirstOrDefault(j => j.Name == jointName);
+        }
 
+        /// <summary>
+        /// 根据名字查找对应的连杆
+        /// </summary>
+        /// <param name="linkName">连杆名称</param>
+        /// <returns></returns>
+        public Link SearchLink(string linkName)
+        {
+            return Links.FirstOrDefault(l => l.Name == linkName);
         }
 
         /// <summary>
@@ -100,8 +113,45 @@ namespace RUS_Frontend.src.Robot
             GD.Print("========================================");
             GD.Print($"机器人名称：{Name ?? "未设置"}");
             GD.Print("========================================");
+            LinkShow();
+            JointShow();
+        }
 
+        /// <summary>
+        /// 从 Xyz，Rpy 转换为 Transform3D 矩阵
+        /// </summary>
+        /// <param name="xyz">平移量</param>
+        /// <param name="rpy">欧拉角旋转量</param>
+        /// <returns>Transform3D 矩阵</returns>
+        public static Transform3D XyzRpyToTransform(Vector3 xyz, Vector3 rpy)
+        {
+            Vector3 godotPos = new Vector3(xyz.X, xyz.Z, xyz.Y);
+            Basis basis = Basis.FromEuler(rpy);
+            return new Transform3D(basis, godotPos);
+        }
 
+        /// <summary>
+        /// 根据模型文件夹路径与模型文件名称查找模型文件
+        /// </summary>
+        /// <param name="meshDir">模型文件夹路径</param>
+        /// <param name="meshFileName">模型名称</param>
+        /// <returns>Node3D 对象</returns>
+        public static Node3D FindMeshFile(string meshDir, string meshFileName)
+        {
+            using var dir = DirAccess.Open(meshDir);
+            string findModel = dir?.GetFiles()?
+                    .FirstOrDefault(f => !f.StartsWith(".") && Path.GetFileNameWithoutExtension(f) == meshFileName);
+            string meshFilePath = string.IsNullOrEmpty(findModel) ? null : Path.Combine(meshDir, findModel).Replace("\\", "/");
+            GD.Print(meshFilePath);
+
+            PackedScene modelScene = ResourceLoader.Load<PackedScene>(meshFilePath);
+            if (modelScene == null)
+            {
+                GD.PrintErr($"Failed to load model: {meshFilePath}");
+                return null;
+            }
+            Node3D modelNode = modelScene.Instantiate<Node3D>();
+            return modelNode;
         }
 
         /// <summary>
@@ -109,8 +159,35 @@ namespace RUS_Frontend.src.Robot
         /// </summary>
         public void LinkShow()
         {
-            
+            for(int i = 0; i < Links.Count; i++)
+            {
+                GD.Print($"连杆编号：{i + 1}，连杆名称：{Links[i].Name}");
+                GD.Print($"连杆原点变换：x={Links[i].Visual.Origin.XYZ.X} y={Links[i].Visual.Origin.XYZ.Y} z={Links[i].Visual.Origin.XYZ.Z} " +
+                    $"r={Links[i].Visual.Origin.RPY.X} p={Links[i].Visual.Origin.RPY.Y} y={Links[i].Visual.Origin.RPY.Z}");
+                GD.Print($"连杆网格模型路径：{Links[i].Visual.Geometry.MeshFilename}");
+                GD.Print($"连杆颜色：r={Links[i].Visual.Material.Rgba.X} g={Links[i].Visual.Material.Rgba.Y} " +
+                    $"b={Links[i].Visual.Material.Rgba.Z} a={Links[i].Visual.Material.Rgba.W}");
+                GD.Print();
+            }
+            GD.Print("========================================");
         }
 
+        /// <summary>
+        /// 结构化打印机械臂 joint 信息
+        /// </summary>
+        public void JointShow()
+        {
+            for (int i = 0;i < Joints.Count;i++)
+            {
+                GD.Print($"关节编号：{i + 1}，关节名称：{Joints[i].Name}，关节类型：{Joints[i].Type}");
+                GD.Print($"连杆原点变换：x={Joints[i].Origin.XYZ.X} y={Joints[i].Origin.XYZ.Y} z={Joints[i].Origin.XYZ.Z} " +
+                    $"r={Joints[i].Origin.RPY.X} p={Joints[i].Origin.RPY.Y} y={Joints[i].Origin.RPY.Z}");
+                GD.Print($"父连杆：{Joints[i].Parent}, 子连杆：{Joints[i].Child}");
+                GD.Print($"运动轴：{Joints[i].Axis}");
+                GD.Print($"关节运动范围为：{Joints[i].Limit.Lower} ~ {Joints[i].Limit.Upper}");
+                GD.Print();
+            }
+            GD.Print("========================================");
+        }
     }
 }

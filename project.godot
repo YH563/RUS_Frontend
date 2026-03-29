@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="RUS_Frontend"
+run/main_scene="uid://l3y17kqtscfu"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -25,7 +32,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/stl-io/plugin.cfg")
+enabled=PackedStringArray()
 
 [physics]
 
@@ -34,3 +41,4 @@ enabled=PackedStringArray("res://addons/stl-io/plugin.cfg")
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+scaling_3d/scale=2.0

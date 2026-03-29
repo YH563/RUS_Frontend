@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace RUS_Frontend.src.Robot
+namespace SRC.Robot
 {
     /// <summary>
     /// URDF 解析器
@@ -21,7 +21,10 @@ namespace RUS_Frontend.src.Robot
         public static RobotData Parse(string URDFPath)
         {
             RobotData robotData = new RobotData();
-            XDocument URDFData = XDocument.Load(URDFPath);
+
+            // 绝对路径转换
+            string realPath = ProjectSettings.GlobalizePath(URDFPath);
+            XDocument URDFData = XDocument.Load(realPath);
             XElement robotRoot = URDFData.Root;
 
             // 获取机器人名称
@@ -95,7 +98,9 @@ namespace RUS_Frontend.src.Robot
         /// <returns></returns>
         private static Vector3 ParseVector3(string xyzObject)
         {
-            string pattern = @"^\d+ \d+ \d+$";
+            if (string.IsNullOrWhiteSpace(xyzObject))
+                return Vector3.Zero;
+            string pattern = @"^([+-]?\d*\.?\d+([eE][+-]?\d+)?) +([+-]?\d*\.?\d+([eE][+-]?\d+)?) +([+-]?\d*\.?\d+([eE][+-]?\d+)?)$";
             bool isMatch = Regex.IsMatch(xyzObject, pattern);
             if (!isMatch)
             {
@@ -120,7 +125,7 @@ namespace RUS_Frontend.src.Robot
         /// <returns></returns>
         private static Vector4 ParseColor(string colorObject)
         {
-            string pattern = @"^\d+ \d+ \d+ \d$";
+            string pattern = @"^([+-]?\d*\.?\d+([eE][+-]?\d+)?) +([+-]?\d*\.?\d+([eE][+-]?\d+)?) +([+-]?\d*\.?\d+([eE][+-]?\d+)?) +([+-]?\d*\.?\d+([eE][+-]?\d+)?)$";
             bool isMatch = Regex.IsMatch(colorObject, pattern);
             if (!isMatch)
             {
