@@ -12,11 +12,6 @@ RUS-Sim（Robotic Ultrasound Simulator）是一个面向超声扫查机械臂的
 - 开发环境：**Godot 4.6+**
 - 脚本语言：**.NET SDK 8.0+**
 
-### 插件要求
-
-- **godot-git-plugin**：3.2.1
-- **godot-webview**
-
 ### 第三方依赖
 
 - OpenCVSharp4：4.13.0

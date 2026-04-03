@@ -1,6 +1,5 @@
 # Godot 引擎相关
 .godot/
-*.import
 export/
 
 # C# 编译输出
@@ -14,9 +13,6 @@ obj/
 .idea/
 *.user
 *.suo
-
-# Godot 插件（如果是通过编辑器安装的）
-addons/
 
 # 系统垃圾文件
 .DS_Store
