@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using SRC.Logger;
 
 namespace SRC.Robot
 {
@@ -104,7 +105,7 @@ namespace SRC.Robot
             bool isMatch = Regex.IsMatch(xyzObject, pattern);
             if (!isMatch)
             {
-                GD.PrintErr("xyz 或 rpy 解析失败！");
+                Logger.Logger.Error("xyz 或 rpy 解析失败！");
                 return Vector3.Zero;
             }
             else
@@ -129,7 +130,7 @@ namespace SRC.Robot
             bool isMatch = Regex.IsMatch(colorObject, pattern);
             if (!isMatch)
             {
-                GD.PrintErr("color 解析失败！");
+                Logger.Logger.Error("color 解析失败！");
                 return Vector4.Zero;
             }
             else

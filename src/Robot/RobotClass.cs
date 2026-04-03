@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using static Godot.RenderingDevice;
+using SRC.Logger;
 
 
 namespace SRC.Robot
@@ -21,35 +24,87 @@ namespace SRC.Robot
         [Export(PropertyHint.Dir)]
         public string MeshDir { get; set; }
 
+        // 六个关节的旋转角度
+        [Export(PropertyHint.Range, "-270, 270")]
+        public float J1Angle { get; set; } = 0;
+        [Export(PropertyHint.Range, "-270, 270")]
+        public float J2Angle { get; set; } = 0;
+        [Export(PropertyHint.Range, "-270, 270")]
+        public float J3Angle { get; set; } = 0;
+        [Export(PropertyHint.Range, "-270, 270")]
+        public float J4Angle { get; set; } = 0;
+        [Export(PropertyHint.Range, "-270, 270")]
+        public float J5Angle { get; set; } = 0;
+        [Export(PropertyHint.Range, "-270, 270")]
+        public float J6Angle { get; set; } = 0;
+
+        // 保存六个关节上次旋转的角度
+        private float[] _lastJointAngles = {0, 0, 0, 0, 0, 0};
+
         // URDF 解析结果保存
         private RobotData _robotData;
+        private List<Node3D> jointNodes;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             LoadModel();
+            Logger.Logger.Info("机械臂模型已创建！", this);
         }
 
         public override void _PhysicsProcess(double delta)
         {
+            if (_robotData == null) return;
             
+            // 遍历所有关节进行旋转
+            for (int i = 0; i < 6; i++)
+            {
+                // 使用反射获取关节值
+                string propertyName = $"J{i+1}Angle";
+                PropertyInfo prop = GetType().GetProperty(propertyName,
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                float jointAngle = (float)prop.GetValue(this);
+                // 检查是否超出限制
+                Limit limit = _robotData.GetLimit(_robotData.Joints[i].Name);
+                if (Mathf.DegToRad(jointAngle) < limit.Lower || Mathf.DegToRad(jointAngle) > limit.Upper)
+                {
+                    jointAngle = Mathf.Clamp(jointAngle, Mathf.RadToDeg((float)limit.Lower), Mathf.RadToDeg((float)limit.Upper));
+                    prop.SetValue(this, jointAngle);
+                    Logger.Logger.Warn($"关节 j {i + 1} 旋转角度到达限制！", this);
+                }
+
+                float angleDelta = jointAngle - _lastJointAngles[i];
+                if (angleDelta != 0)
+                {
+                    RotateJoint(i, Mathf.DegToRad(angleDelta));
+                    _lastJointAngles[i] = jointAngle;
+                }
+            }
         }
 
         /// <summary>
         /// 旋转对应的关节
         /// </summary>
-        /// <param name="jointName">关节名称</param>
-        /// <param name="angle">旋转角度，弧度制</param>
+        /// <param name="jointIndex">关节序号，第一个为0</param>
+        /// <param name="angle">旋转角度差值，弧度制</param>
         /// <returns></returns>
-        public void RotateJoint(string jointName, float angle)
+        private void RotateJoint(int jointIndex, float angle)
         {
-            var joint = _robotData.SearchJoint(jointName);
+            // 查找对应关节获取旋转轴
+            var joint = _robotData.SearchJoint(jointNodes[jointIndex + 1].Name);
             Vector3 axis = new Vector3(joint.Axis.X, joint.Axis.Z, joint.Axis.Y);
             axis.Normalized();
-            
+
             // 查找对应子节点
-            var jointNode = FindChild(jointName, recursive: true) as Node3D;
-            jointNode.Rotate(axis, angle);
+            var jointNode = jointNodes[jointIndex + 1];
+            if (jointNode != null)
+            {
+                jointNode.RotateObjectLocal(axis, angle);
+            }
+            else
+            {
+                Logger.Logger.Error($"关节 {jointNodes[jointIndex + 1].Name} 未找到", this);
+            }
         }
 
         /// <summary>
@@ -65,7 +120,7 @@ namespace SRC.Robot
             }
             else
             {
-                GD.PrintErr("URDF 文件路径为空！");
+                Logger.Logger.Error("URDF 文件路径为空！", this);
                 return;
             }
         }
@@ -78,18 +133,18 @@ namespace SRC.Robot
             // 将节点级联起来
             string baseLinkName = "base_link";
             Node3D rootNode = CreateJointAndChild(baseLinkName);
-            List<Node3D> nodes = new List<Node3D>();
-            nodes.Add(rootNode);
+            jointNodes = new List<Node3D>();
+            jointNodes.Add(rootNode);
             foreach(var joint in _robotData.Joints)
             {
-                nodes.Add(CreateJointAndChild(joint.Name));
+                jointNodes.Add(CreateJointAndChild(joint.Name));
             }
-            foreach(var (node, index) in nodes.Select((node, index) => (node, index)) )
+            foreach(var (node, index) in jointNodes.Select((node, index) => (node, index)) )
             {
                 if (index == 0)
                     AddChild(node);
                 else
-                    nodes[index - 1].AddChild(node);
+                    jointNodes[index - 1].AddChild(node);
             }
 
         }

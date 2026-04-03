@@ -22,6 +22,9 @@ RUS-Sim（Robotic Ultrasound Simulator）是一个面向超声扫查机械臂的
 - OpenCVSharp4：4.13.0
 - OpenCvSharp4.runtime.win：4.13.0
 - OpenCvSharp4.official.runtime.linux-x64：4.13.0
+- Microsoft.Data.Sqlite：10.0.5
+- sqlite-net-pcl：1.9.172
+- SQLitePCLRaw.bundle_e_sqlite3：3.0.2
 
 ## 项目结构
 
@@ -48,11 +51,11 @@ project/
 │       ├── ToolBar/           # 工具栏控件
 │       └── ...
 └── src/                       # 脚本代码 C#
-    ├── Communication/         # 后端交互模块
-    ├── Robot/                 # 机械臂模块
-    ├── UltrasoundImage/       # 超声图像处理模块
-    ├── UI/                    # UI 控制脚本
-    └── ...
+	├── Communication/         # 后端交互模块
+	├── Robot/                 # 机械臂模块
+	├── UltrasoundImage/       # 超声图像处理模块
+	├── UI/                    # UI 控制脚本
+	└── ...
 ```
 
 ## 主界面示例

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Godot;
+using SRC.Logger;
 
 namespace SRC.Robot
 {
@@ -105,14 +106,24 @@ namespace SRC.Robot
         }
 
         /// <summary>
+        /// 根据关节名字获取单个关节的旋转角度上下限
+        /// </summary>
+        /// <param name="jointName">关节名字</param>
+        /// <returns></returns>
+        public Limit GetLimit(string jointName)
+        {
+            return SearchJoint(jointName).Limit;
+        }
+
+        /// <summary>
         /// 结构化打印机器人数据信息
         /// </summary>
         public void Show()
         {
             // 打印机器人基础信息
-            GD.Print("========================================");
-            GD.Print($"机器人名称：{Name ?? "未设置"}");
-            GD.Print("========================================");
+            Logger.Logger.Debug("========================================", this);
+            Logger.Logger.Debug($"机器人名称：{Name ?? "未设置"}", this);
+            Logger.Logger.Debug("========================================", this);
             LinkShow();
             JointShow();
         }
@@ -142,12 +153,11 @@ namespace SRC.Robot
             string findModel = dir?.GetFiles()?
                     .FirstOrDefault(f => !f.StartsWith(".") && Path.GetFileNameWithoutExtension(f) == meshFileName);
             string meshFilePath = string.IsNullOrEmpty(findModel) ? null : Path.Combine(meshDir, findModel).Replace("\\", "/");
-            GD.Print(meshFilePath);
-
+            
             PackedScene modelScene = ResourceLoader.Load<PackedScene>(meshFilePath);
             if (modelScene == null)
             {
-                GD.PrintErr($"Failed to load model: {meshFilePath}");
+                Logger.Logger.Error($"Failed to load model: {meshFilePath}");
                 return null;
             }
             Node3D modelNode = modelScene.Instantiate<Node3D>();
@@ -161,15 +171,15 @@ namespace SRC.Robot
         {
             for(int i = 0; i < Links.Count; i++)
             {
-                GD.Print($"连杆编号：{i + 1}，连杆名称：{Links[i].Name}");
-                GD.Print($"连杆原点变换：x={Links[i].Visual.Origin.XYZ.X} y={Links[i].Visual.Origin.XYZ.Y} z={Links[i].Visual.Origin.XYZ.Z} " +
-                    $"r={Links[i].Visual.Origin.RPY.X} p={Links[i].Visual.Origin.RPY.Y} y={Links[i].Visual.Origin.RPY.Z}");
-                GD.Print($"连杆网格模型路径：{Links[i].Visual.Geometry.MeshFilename}");
-                GD.Print($"连杆颜色：r={Links[i].Visual.Material.Rgba.X} g={Links[i].Visual.Material.Rgba.Y} " +
-                    $"b={Links[i].Visual.Material.Rgba.Z} a={Links[i].Visual.Material.Rgba.W}");
+                Logger.Logger.Debug($"连杆编号：{i + 1}，连杆名称：{Links[i].Name}", this);
+                Logger.Logger.Debug($"连杆原点变换：x={Links[i].Visual.Origin.XYZ.X} y={Links[i].Visual.Origin.XYZ.Y} z={Links[i].Visual.Origin.XYZ.Z} " +
+                    $"r={Links[i].Visual.Origin.RPY.X} p={Links[i].Visual.Origin.RPY.Y} y={Links[i].Visual.Origin.RPY.Z}", this);
+                Logger.Logger.Debug($"连杆网格模型路径：{Links[i].Visual.Geometry.MeshFilename}", this);
+                Logger.Logger.Debug($"连杆颜色：r={Links[i].Visual.Material.Rgba.X} g={Links[i].Visual.Material.Rgba.Y} " +
+                    $"b={Links[i].Visual.Material.Rgba.Z} a={Links[i].Visual.Material.Rgba.W}", this);
                 GD.Print();
             }
-            GD.Print("========================================");
+            Logger.Logger.Debug("========================================", this);
         }
 
         /// <summary>
@@ -179,15 +189,15 @@ namespace SRC.Robot
         {
             for (int i = 0;i < Joints.Count;i++)
             {
-                GD.Print($"关节编号：{i + 1}，关节名称：{Joints[i].Name}，关节类型：{Joints[i].Type}");
-                GD.Print($"连杆原点变换：x={Joints[i].Origin.XYZ.X} y={Joints[i].Origin.XYZ.Y} z={Joints[i].Origin.XYZ.Z} " +
-                    $"r={Joints[i].Origin.RPY.X} p={Joints[i].Origin.RPY.Y} y={Joints[i].Origin.RPY.Z}");
-                GD.Print($"父连杆：{Joints[i].Parent}, 子连杆：{Joints[i].Child}");
-                GD.Print($"运动轴：{Joints[i].Axis}");
-                GD.Print($"关节运动范围为：{Joints[i].Limit.Lower} ~ {Joints[i].Limit.Upper}");
+                Logger.Logger.Debug($"关节编号：{i + 1}，关节名称：{Joints[i].Name}，关节类型：{Joints[i].Type}", this);
+                Logger.Logger.Debug($"连杆原点变换：x={Joints[i].Origin.XYZ.X} y={Joints[i].Origin.XYZ.Y} z={Joints[i].Origin.XYZ.Z} " +
+                    $"r={Joints[i].Origin.RPY.X} p={Joints[i].Origin.RPY.Y} y={Joints[i].Origin.RPY.Z}", this);
+                Logger.Logger.Debug($"父连杆：{Joints[i].Parent}, 子连杆：{Joints[i].Child}", this);
+                Logger.Logger.Debug($"运动轴：{Joints[i].Axis}", this);
+                Logger.Logger.Debug($"关节运动范围为：{Joints[i].Limit.Lower} ~ {Joints[i].Limit.Upper}", this);
                 GD.Print();
             }
-            GD.Print("========================================");
+            Logger.Logger.Debug("========================================", this);
         }
     }
 }
