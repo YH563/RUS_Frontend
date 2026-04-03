@@ -11,6 +11,7 @@ obj/
 # IDE 配置与缓存
 .vs/
 .idea/
+.vscode/
 *.user
 *.suo
 
