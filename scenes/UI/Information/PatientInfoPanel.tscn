@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://7ywhge31270c"]
+
+[node name="PatientInfoPanel" type="Panel" unique_id=1021516276]
+custom_minimum_size = Vector2(0, 300)
+
+[node name="TitleLabel" type="Label" parent="." unique_id=925773401]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "患者信息"

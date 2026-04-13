@@ -1,9 +1,110 @@
 [gd_scene format=3 uid="uid://cw46sx236peh0"]
 
+[ext_resource type="Script" uid="uid://d07wqbbf3j6hy" path="res://scenes/UI/ui_main.cs" id="1_6beyc"]
+[ext_resource type="PackedScene" uid="uid://vgwr8tqcrmh" path="res://scenes/UI/Information/TopBar.tscn" id="1_jk7as"]
+[ext_resource type="PackedScene" uid="uid://7ywhge31270c" path="res://scenes/UI/Information/PatientInfoPanel.tscn" id="2_6beyc"]
+[ext_resource type="PackedScene" uid="uid://c86wrq2e7mq1t" path="res://scenes/UI/RobotControl/RobotControlPanel.tscn" id="3_mmlt8"]
+[ext_resource type="PackedScene" uid="uid://c7xw618mhgbsm" path="res://scenes/UI/UltrasoundImage/UltrasoundPanel.tscn" id="5_bofht"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmlt8"]
+bg_color = Color(0.6, 0.6, 0.6, 0.4627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6beyc"]
+bg_color = Color(0.6, 0.6, 0.6, 0.654902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk7as"]
+bg_color = Color(0.9607843, 0.9607843, 0.9607843, 1)
+
 [node name="UiMain" type="Control" unique_id=1941909623]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 10.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6beyc")
+
+[node name="MainCanvas" type="Control" parent="." unique_id=1799138064]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" parent="MainCanvas" unique_id=606517427 instance=ExtResource("1_jk7as")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 25.0
+offset_top = 3.0
+offset_right = 25.0
+offset_bottom = 63.0
+grow_horizontal = 0
+
+[node name="LeftPanel" type="VBoxContainer" parent="MainCanvas" unique_id=1342303256]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.2
+anchor_bottom = 1.0
+offset_top = 60.0
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ColorRect" type="ColorRect" parent="MainCanvas/LeftPanel" unique_id=326364631]
+layout_mode = 2
+
+[node name="PatientInfoPanel" parent="MainCanvas/LeftPanel" unique_id=1021516276 instance=ExtResource("2_6beyc")]
+custom_minimum_size = Vector2(256, 190)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmlt8")
+
+[node name="RobotControlPanel" parent="MainCanvas/LeftPanel" unique_id=320440159 instance=ExtResource("3_mmlt8")]
+custom_minimum_size = Vector2(256, 600)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6beyc")
+
+[node name="MiddlePanel" type="VBoxContainer" parent="MainCanvas" unique_id=134200253]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_bottom = 1.0
+offset_top = 60.0
+theme_override_constants/separation = 0
+
+[node name="RightPanel" type="Panel" parent="MainCanvas" unique_id=2126770562]
+custom_minimum_size = Vector2(1024, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -775.0
+offset_top = 60.0
+offset_right = 638.0
+
+[node name="UltrasoundPanel" parent="MainCanvas/RightPanel" unique_id=2006828808 instance=ExtResource("5_bofht")]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -627.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusBar" type="Panel" parent="MainCanvas" unique_id=1627906992]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jk7as")

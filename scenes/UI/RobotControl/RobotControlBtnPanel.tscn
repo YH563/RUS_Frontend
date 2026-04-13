@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://p0y2uvxlgdqo"]
+
+[node name="RobotControlBtnPanel_" type="VBoxContainer" unique_id=2086371107]
+custom_minimum_size = Vector2(0, 150)
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="JointProgress" type="ProgressBar" parent="." unique_id=1441348473]
+layout_mode = 2
+value = 40.0
+
+[node name="BtnBox" type="HBoxContainer" parent="." unique_id=499794987]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="StartBtn" type="Button" parent="BtnBox" unique_id=2037847622]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+
+[node name="PauseBtn" type="Button" parent="BtnBox" unique_id=61833609]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+
+[node name="StopBtn" type="Button" parent="BtnBox" unique_id=916797859]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2

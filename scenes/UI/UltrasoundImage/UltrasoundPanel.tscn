@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c7xw618mhgbsm"]
+
+[node name="UltrasoundPanel" type="Panel" unique_id=2006828808]
+
+[node name="Label" type="Label" parent="." unique_id=1348666201]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "超声图像展示端"
+horizontal_alignment = 1
+vertical_alignment = 1

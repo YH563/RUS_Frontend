@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://sy3kg0wrbwur"]
+
+[node name="ToolBarPanel" type="Panel" unique_id=2095139583]
+
+[node name="label" type="Label" parent="." unique_id=381754266]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "工具栏
+
+"

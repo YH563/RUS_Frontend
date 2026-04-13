@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://vgwr8tqcrmh"]
+
+[ext_resource type="Script" uid="uid://bbtlf0e24jftu" path="res://scenes/UI/Information/TopBar.cs" id="1_kxrsg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_527vh"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.9411765, 0.9411765, 0.9411765, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxrsg"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.9098039, 0.9529412, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2509804, 0.61960787, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TopBar" type="HBoxContainer" unique_id=606517427]
+custom_minimum_size = Vector2(0, 60)
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("1_kxrsg")
+
+[node name="Panel" type="Panel" parent="." unique_id=1645303305]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_527vh")
+
+[node name="PatientSelectBtn" type="Button" parent="." unique_id=757208520]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kxrsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kxrsg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kxrsg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kxrsg")
+text = "当前患者：张建国 (ID：123456)"
+flat = true
+
+[node name="QueueLabel" type="Label" parent="." unique_id=1313647690]
+layout_mode = 2
+text = "队列待诊：3 人（下一位：李四）"
+
+[node name="RobotStatusLabel" type="Label" parent="." unique_id=2107206679]
+layout_mode = 2
+text = "机器人待命（安全）"
+
+[node name="DoctorLabel" type="Label" parent="." unique_id=757311694]
+layout_mode = 2
+text = "医师：王建国 18:43"
