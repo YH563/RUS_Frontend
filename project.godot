@@ -15,6 +15,10 @@ run/main_scene="uid://l3y17kqtscfu"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+RosBridgeClient="*uid://60ymptro326t"
+
 [display]
 
 window/size/viewport_width=1280

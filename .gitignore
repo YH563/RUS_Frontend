@@ -12,6 +12,7 @@ obj/
 .vs/
 .idea/
 .vscode/
+.VSCodeCounter/
 *.user
 *.suo
 
