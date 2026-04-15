@@ -1,9 +1,23 @@
 [gd_scene format=3 uid="uid://cw46sx236peh0"]
 
-[node name="UiMain" type="Control" unique_id=1941909623]
+[ext_resource type="PackedScene" uid="uid://bgqa1rvyt4mt7" path="res://scenes/UI/TopBar/top_bar.tscn" id="1_8hqj4"]
+
+[node name="UIMain" type="Control" unique_id=1941909623]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1312224057]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" parent="." unique_id=1173576524 instance=ExtResource("1_8hqj4")]
+layout_mode = 1
+offset_right = -0.00012207031

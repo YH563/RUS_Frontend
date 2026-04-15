@@ -12,6 +12,9 @@ namespace SRC.Communication
         public string Type => GetType().Name;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public record RobotAnglesMessage : RobotMessage
     {
         public double[] JointAngels { get; init; }
