@@ -55,6 +55,11 @@ namespace SRC.Communication
             }
         }
 
+        /// <summary>
+        /// 发送消息
+        /// </summary>
+        /// <typeparam name="T">RobotMessage 类型</typeparam>
+        /// <param name="message">消息内容</param>
         public void Send<T> (T message) where T : RobotMessage
         {
             Type type = typeof (T);

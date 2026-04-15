@@ -98,8 +98,8 @@ namespace SRC.Communication
                     string text = Encoding.UTF8.GetString(packet);
                     Logger.Logger.Info($"收到后端数据，为文本信息: {text}", this);
                     // 将处理后的数据进行转发
-                    var data = RosMessageCodec.Decode(text);
-                    RobotMessageManager.Instance.Send(data);
+                    // var data = RosMessageCodec.Decode(text);
+                    // RobotMessageManager.Instance.Send(data);
                 }
                 else
                 {
