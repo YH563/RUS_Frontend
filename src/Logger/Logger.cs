@@ -17,20 +17,19 @@ namespace SRC.Logger
         public enum Level{ Debug, Info, Warning, Error }
 
         private static string _logFilePath;  // 日志文件路径
-        private static StringBuilder _buffer = new StringBuilder();  // 日志信息缓冲区
-        private static int _pendingCount = 0;  // 当前写入日志条数
-        private static Timer _flushTimer;  // 刷新缓冲区计时器
+        private static FileLogWritter _logWritter;  // 日志写入器
 
         static Logger()
         {
             // 确定路径
             string exeDir = Path.GetDirectoryName(OS.GetExecutablePath());
-            string logDir = Path.Combine(exeDir, "Logs");
+            string logDir = Path.Combine(exeDir, ".logs");
+            string fileName = $"app_{DateTime.Now:yyyy-MM-dd}.log";
             try
             {
                 if (!Directory.Exists(logDir))
                     Directory.CreateDirectory(logDir);
-                _logFilePath = Path.Combine(logDir, "app.log");
+                _logFilePath = Path.Combine(logDir, fileName);
             }
             catch
             {
@@ -38,16 +37,14 @@ namespace SRC.Logger
                 string userDir = ProjectSettings.GlobalizePath("user://logs");
                 if (!Directory.Exists(userDir))
                     Directory.CreateDirectory(userDir);
-                _logFilePath = Path.Combine(userDir, "app.log");
+                _logFilePath = Path.Combine(userDir, fileName);
                 GD.PrintErr("无法在程序目录创建日志，已改用 user://logs");
             }
 
-            // 启动定时器：每3秒自动把缓冲区写入文件（不涉及线程）
-            //_flushTimer = new Timer();
-            //_flushTimer.WaitTime = 3.0;
-            //_flushTimer.OneShot = false;
-            //_flushTimer.Timeout += () => Flush();
-            //_flushTimer.Start();
+            _logWritter = new FileLogWritter(_logFilePath);
+            Debug($"日志文件路径为：{_logFilePath}");
+            // 程序退出时确保关闭写入器，写入所有日志
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => _logWritter.Close();
         }
 
         // 公共 API
@@ -58,7 +55,6 @@ namespace SRC.Logger
 
         private static void LogMessage(Level level, string msg, object context)
         {
-            if (level < MinLevel) return;
             string module = context?.GetType().Name ?? "Global";
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string formatted = $"[{timestamp}] [{level}] [{module}] {msg}";
@@ -69,6 +65,9 @@ namespace SRC.Logger
                 case Level.Error: GD.PrintRich($"[color=red]{formatted}[/color]"); break;
                 default: GD.Print(formatted); break;
             }
+            // 只将Info，Warn，Error信息写入日志
+            if (level > MinLevel)
+                _logWritter?.WriteLine(formatted);
             return;
         }
     }

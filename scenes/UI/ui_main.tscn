@@ -15,7 +15,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0.654902)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk7as"]
 bg_color = Color(0.9607843, 0.9607843, 0.9607843, 1)
 
-[node name="UiMain" type="Control" unique_id=1941909623]
+[node name="UIMain" type="Control" unique_id=1941909623]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

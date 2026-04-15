@@ -12,9 +12,11 @@ obj/
 .vs/
 .idea/
 .vscode/
+.VSCodeCounter/
 *.user
 *.suo
 
 # 系统垃圾文件
 .DS_Store
 Thumbs.db
+.VSCodeCounter

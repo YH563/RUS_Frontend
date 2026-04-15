@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using static Godot.RenderingDevice;
 using SRC.Logger;
+using SRC.Communication;
 
 
 namespace SRC.Robot
@@ -50,6 +51,8 @@ namespace SRC.Robot
         {
             LoadModel();
             Logger.Logger.Info("机械臂模型已创建！", this);
+            // 订阅角度信息
+            RobotMessageManager.Instance.Subscribe<RobotAnglesMessage>(OnAnglesChanged);
         }
 
         public override void _PhysicsProcess(double delta)
@@ -79,6 +82,18 @@ namespace SRC.Robot
                     RotateJoint(i, Mathf.DegToRad(angleDelta));
                     _lastJointAngles[i] = jointAngle;
                 }
+            }
+        }
+
+        private void OnAnglesChanged(RobotAnglesMessage message)
+        {
+            // 遍历设置角度
+            for (int i = 0; i < 6; i++)
+            {
+                string propertyName = $"J{i + 1}Angle";
+                PropertyInfo prop = GetType().GetProperty(propertyName,
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                prop.SetValue(this, message.JointAngels[i]);
             }
         }
 
@@ -202,4 +217,3 @@ namespace SRC.Robot
 
     }
 }
-

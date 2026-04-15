@@ -15,11 +15,16 @@ run/main_scene="uid://l3y17kqtscfu"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+RosBridgeClient="*uid://60ymptro326t"
+
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
-window/stretch/mode="viewport"
+window/size/viewport_width=1440
+window/size/viewport_height=810
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
@@ -29,10 +34,6 @@ project/assembly_name="RUS_Frontend"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
-
-[editor_plugins]
-
-enabled=PackedStringArray()
 
 [physics]
 
