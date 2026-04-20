@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dwg2sbhi4ljpa"
-path="res://.godot/imported/upperarm_link.gltf-24c29aff96a2195bb5595ff79f75b520.scn"
+uid="uid://de74q3vvljc4k"
+path="res://.godot/imported/wrist2_link.gltf-57389bed048b0ff53924373410ec3def.scn"
 
 [deps]
 
-source_file="res://assets/robot_description/meshes/fairino3_v6_gltf/upperarm_link.gltf"
-dest_files=["res://.godot/imported/upperarm_link.gltf-24c29aff96a2195bb5595ff79f75b520.scn"]
+source_file="res://assets/RobotDescription/meshes/fairino3_v6_gltf/wrist2_link.gltf"
+dest_files=["res://.godot/imported/wrist2_link.gltf-57389bed048b0ff53924373410ec3def.scn"]
 
 [params]
 
@@ -23,8 +23,8 @@ nodes/use_name_suffixes=true
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
-meshes/create_shadow_meshes=true
-meshes/light_baking=1
+meshes/create_shadow_meshes=false
+meshes/light_baking=0
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
@@ -37,6 +37,14 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"x1": {
+"use_external/enabled": false,
+"use_external/fallback_path": "res://assets/Materials/normal_convert.tres",
+"use_external/path": "uid://tqsonc7hbc6b"
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

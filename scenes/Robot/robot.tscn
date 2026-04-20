@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cx1tg37i7irwv"]
 
 [ext_resource type="Script" uid="uid://doqlyvursbryw" path="res://src/Robot/RobotClass.cs" id="1_yacrl"]
+[ext_resource type="Material" uid="uid://tqsonc7hbc6b" path="res://assets/Materials/normal_convert.tres" id="2_814b4"]
 
 [node name="Robot" type="Node3D" unique_id=909925622]
 script = ExtResource("1_yacrl")
-URDFPath = "res://assets/robot_description/fairino3_v6.urdf"
-MeshDir = "res://assets/robot_description/meshes/fairino3_v6_gltf"
-_lastJointAngles = PackedFloat32Array(0, 0, 0, 0, 0, 0)
+URDFPath = "res://assets/RobotDescription/fairino3_v6.urdf"
+MeshDir = "res://assets/RobotDescription/meshes/fairino3_v6_gltf"
+FixMaterial = ExtResource("2_814b4")

@@ -14,20 +14,22 @@ namespace SRC.Communication
         public static RosBridgeClient Instance { get; private set; }
              
         // 配置参数
-        [Export]
-        public string RosBridgeUrl = "ws://127.0.0.1:9090";  // 服务器地址
-        [Export]
+        public string RosBridgeUrl { get; set; } = "ws://127.0.0.1:9090";  // 服务器地址
         public bool AutoReconnect { get; set; } = true;  // 是否重连
-
+        
         private WebSocketPeer _webSocketPeer = new WebSocketPeer();
         private double _reconnectDelay = 1.0f;  // 重连延迟
         private double _reconnectTimer = 0.0f;  // 重连的计时器
+        private bool _connected = false;  // 是否建立连接
 
         /// <summary>
         /// 初始化
         /// </summary>
         public override void _Ready()
         {
+            // 注册消息
+            RosMessageCodec.RegisterTopic<JointAnglesMsg>("/joint_angles");
+
             if (Instance != null)
             {
                 QueueFree();
@@ -46,6 +48,12 @@ namespace SRC.Communication
                     break;
                 case WebSocketPeer.State.Open:  // 连接完成，正常轮询接收数据
                     _webSocketPeer.Poll();
+                    if (!_connected)
+                    {
+                        _connected = true;
+                        Logger.Logger.Info("WebSocket 已连接！", this);
+                        RobotMessageManager.Instance.OnConnectionEstablished();
+                    }
                     ProcessMessages();  // 处理接受到的消息
                     break;
                 case WebSocketPeer.State.Closing:  // 正在关闭
@@ -85,6 +93,17 @@ namespace SRC.Communication
         }
 
         /// <summary>
+        /// 发布订阅话题的消息
+        /// </summary>
+        /// <param name="msg">订阅话题</param>
+        public void SendSubscribeMessage(SubscribeMessage msg)
+        {
+            string json = RosMessageCodec.Encode(msg);
+            _webSocketPeer.SendText(json);
+            Logger.Logger.Info($"已订阅话题：{msg.Topic}", this);
+        }
+
+        /// <summary>
         /// 处理接收的数据
         /// </summary>
         private void ProcessMessages()
@@ -98,8 +117,11 @@ namespace SRC.Communication
                     string text = Encoding.UTF8.GetString(packet);
                     Logger.Logger.Info($"收到后端数据，为文本信息: {text}", this);
                     // 将处理后的数据进行转发
-                    // var data = RosMessageCodec.Decode(text);
-                    // RobotMessageManager.Instance.Send(data);
+                    var msg = RosMessageCodec.DecodeBridgeMessage(text);
+                    if (msg is PublishMessage pub)
+                    {
+                        RobotMessageManager.Instance.Send(pub.Msg, pub.Topic);
+                    }
                 }
                 else
                 {

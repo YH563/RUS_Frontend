@@ -14,45 +14,66 @@ namespace SRC.Robot
     /// <summary>
     /// 管理机械臂模型的类
     /// </summary>
-    [Tool]  // 可以在编辑器下运行ready
+    [Tool]
     public partial class RobotClass : Node
     {
         // URDF 文件路径
-        [Export(PropertyHint.File, "*.urdf")]
-        public string URDFPath { get; set; }
+        [Export(PropertyHint.File, "*.urdf")] public string URDFPath { get; set; }
 
         // 模型保存文件路径
-        [Export(PropertyHint.Dir)]
-        public string MeshDir { get; set; }
+        [Export(PropertyHint.Dir)] public string MeshDir { get; set; }
+
+        // 修复法线方向的材质
+        [Export] public ShaderMaterial FixMaterial { get; set; }
 
         // 六个关节的旋转角度
-        [Export(PropertyHint.Range, "-270, 270")]
-        public float J1Angle { get; set; } = 0;
-        [Export(PropertyHint.Range, "-270, 270")]
-        public float J2Angle { get; set; } = 0;
-        [Export(PropertyHint.Range, "-270, 270")]
-        public float J3Angle { get; set; } = 0;
-        [Export(PropertyHint.Range, "-270, 270")]
-        public float J4Angle { get; set; } = 0;
-        [Export(PropertyHint.Range, "-270, 270")]
-        public float J5Angle { get; set; } = 0;
-        [Export(PropertyHint.Range, "-270, 270")]
-        public float J6Angle { get; set; } = 0;
+        [Export(PropertyHint.Range, "-270, 270")] public float J1Angle{
+            get => _jointAngles[0];
+            set => _jointAngles[0] = value;
+        }
+        [Export(PropertyHint.Range, "-270, 270")] public float J2Angle{
+            get => _jointAngles[1];
+            set => _jointAngles[1] = value;
+        }
+        [Export(PropertyHint.Range, "-270, 270")] public float J3Angle{
+            get => _jointAngles[2];
+            set => _jointAngles[2] = value;
+        }
+        [Export(PropertyHint.Range, "-270, 270")] public float J4Angle{
+            get => _jointAngles[3];
+            set => _jointAngles[3] = value;
+        }
+        [Export(PropertyHint.Range, "-270, 270")] public float J5Angle{
+            get => _jointAngles[4];
+            set => _jointAngles[4] = value;
+        }
+        [Export(PropertyHint.Range, "-270, 270")] public float J6Angle{
+            get => _jointAngles[5];
+            set => _jointAngles[5] = value;
+        }
 
-        // 保存六个关节上次旋转的角度
-        private float[] _lastJointAngles = {0, 0, 0, 0, 0, 0};
+        private float[] _jointAngles = { 0, 0, 0, 0, 0, 0 };  // 保存关节角度
+        private float[] _lastJointAngles = { 0, 0, 0, 0, 0, 0};  // 保存六个关节上次旋转的角度
 
         // URDF 解析结果保存
         private RobotData _robotData;
         private List<Node3D> jointNodes;
+
+        // 订阅的消息
+        private readonly SubscribeMessage _subscribeMessage = new SubscribeMessage { 
+            Topic = "/joint_angles", 
+            Type = "rus_sim_interfaces/msg/JointAngles" 
+        };
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             LoadModel();
             Logger.Logger.Info("机械臂模型已创建！", this);
-            // 订阅角度信息
-            RobotMessageManager.Instance.Subscribe<RobotAnglesMessage>(OnAnglesChanged);
+            // 订阅后端消息
+            RobotMessageManager.Instance.SubscribeTopic(_subscribeMessage);
+            // 注册接收到角度数据的回调函数
+            RobotMessageManager.Instance.Register<JointAnglesMsg>(OnAnglesChanged);
         }
 
         public override void _PhysicsProcess(double delta)
@@ -62,17 +83,14 @@ namespace SRC.Robot
             // 遍历所有关节进行旋转
             for (int i = 0; i < 6; i++)
             {
-                // 使用反射获取关节值
-                string propertyName = $"J{i+1}Angle";
-                PropertyInfo prop = GetType().GetProperty(propertyName,
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                float jointAngle = (float)prop.GetValue(this);
+                // 获取关节角度制
+                float jointAngle = _jointAngles[i];
                 // 检查是否超出限制
                 Limit limit = _robotData.GetLimit(_robotData.Joints[i].Name);
                 if (Mathf.DegToRad(jointAngle) < limit.Lower || Mathf.DegToRad(jointAngle) > limit.Upper)
                 {
                     jointAngle = Mathf.Clamp(jointAngle, Mathf.RadToDeg((float)limit.Lower), Mathf.RadToDeg((float)limit.Upper));
-                    prop.SetValue(this, jointAngle);
+                    _jointAngles[i] = jointAngle;
                     Logger.Logger.Warn($"关节 j {i + 1} 旋转角度到达限制！", this);
                 }
 
@@ -85,16 +103,15 @@ namespace SRC.Robot
             }
         }
 
-        private void OnAnglesChanged(RobotAnglesMessage message)
+        /// <summary>
+        /// 收到消息的回调
+        /// </summary>
+        /// <param name="msg">角度消息</param>
+        private void OnAnglesChanged(JointAnglesMsg msg)
         {
             // 遍历设置角度
             for (int i = 0; i < 6; i++)
-            {
-                string propertyName = $"J{i + 1}Angle";
-                PropertyInfo prop = GetType().GetProperty(propertyName,
-                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                prop.SetValue(this, message.JointAngels[i]);
-            }
+                _jointAngles[i] = (float)msg.Joints[i];
         }
 
         /// <summary>
@@ -107,7 +124,7 @@ namespace SRC.Robot
         {
             // 查找对应关节获取旋转轴
             var joint = _robotData.SearchJoint(jointNodes[jointIndex + 1].Name);
-            Vector3 axis = new Vector3(joint.Axis.X, joint.Axis.Z, joint.Axis.Y);
+            Vector3 axis = new Vector3(joint.Axis.X, joint.Axis.Z, -joint.Axis.Y);
             axis.Normalized();
 
             // 查找对应子节点
@@ -130,7 +147,6 @@ namespace SRC.Robot
             if (!string.IsNullOrEmpty(URDFPath))
             {
                 _robotData = RobotParser.Parse(URDFPath);
-                _robotData.Show();
                 BuildRobot();
             }
             else
@@ -183,6 +199,16 @@ namespace SRC.Robot
 
                 // 加载模型
                 var meshNode3D = RobotData.FindMeshFile(MeshDir, meshFileName);
+                Node3D currentNode = meshNode3D;
+                while (currentNode.GetChildCount() > 0)
+                {
+                    currentNode = (Node3D)currentNode.GetChild(0);
+                    if (currentNode is MeshInstance3D mesh && FixMaterial != null)
+                    {
+                        mesh.Transform = RobotData.XyzRpyToTransform(link.Visual.Origin.XYZ, link.Visual.Origin.RPY);
+                        mesh.MaterialOverride = FixMaterial;
+                    }
+                }
 
                 // 创建根节点
                 var baseNode = new Node3D();
@@ -191,7 +217,6 @@ namespace SRC.Robot
                 meshNode3D.Name = jointName;
                 // 添加变换
                 baseNode.Transform = RobotData.XyzRpyToTransform(link.Visual.Origin.XYZ, link.Visual.Origin.RPY);
-                meshNode3D.Transform = RobotData.XyzRpyToTransform(link.Visual.Origin.XYZ, link.Visual.Origin.RPY);
                 return baseNode;
             }
             else
@@ -202,6 +227,16 @@ namespace SRC.Robot
 
                 // 加载模型
                 var meshNode3D = RobotData.FindMeshFile(MeshDir, meshFileName);
+                Node3D currentNode = meshNode3D;
+                while(currentNode.GetChildCount() > 0)
+                {
+                    currentNode = (Node3D)currentNode.GetChild(0);
+                    if (currentNode is MeshInstance3D mesh && FixMaterial != null)
+                    {
+                        mesh.Transform = RobotData.XyzRpyToTransform(childLink.Visual.Origin.XYZ, childLink.Visual.Origin.RPY);
+                        mesh.MaterialOverride = FixMaterial;
+                    }
+                }
 
                 // 父节点为关节节点，子节点为子连杆的模型
                 var jointNode = new Node3D();
@@ -210,7 +245,6 @@ namespace SRC.Robot
                 meshNode3D.Name = childLink.Name;
                 // 添加变换
                 jointNode.Transform = RobotData.XyzRpyToTransform(joint.Origin.XYZ, joint.Origin.RPY);
-                meshNode3D.Transform = RobotData.XyzRpyToTransform(childLink.Visual.Origin.XYZ, childLink.Visual.Origin.RPY);
                 return jointNode;
             }
         }

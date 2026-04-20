@@ -14,60 +14,105 @@ namespace SRC.Communication
         private static readonly RobotMessageManager _instance = new RobotMessageManager();
         public static RobotMessageManager Instance => _instance;
 
-        // 存储每个消息类型对应的多播委托
+        // 存储接收到消息类型后的多播委托
         private readonly Dictionary<Type, Delegate> _handlers = new Dictionary<Type, Delegate>();
+
+        private readonly HashSet<string> _subscribedTopics = new HashSet<string>();  // 已订阅的话题，用HashSet保存，避免重复
+        private readonly List<SubscribeMessage> _pending = new List<SubscribeMessage>();  // 暂存订阅的话题
+        private bool _connected = false;
 
         // 私有构造函数
         private RobotMessageManager() { }
 
         /// <summary>
-        /// 订阅消息
+        /// 注册接收到消息后的回调函数
         /// </summary>
-        /// <typeparam name="T">消息类型（必须继承自 RobotMessage）</typeparam>
-        /// <param name="callback">收到消息时的回调函数</param>
-        public void Subscribe<T> (Action<T> callback) where T : RobotMessage
+        /// <typeparam name="T">消息类型</typeparam>
+        /// <param name="handler">收到消息时的回调函数</param>
+        public void Register<T> (Action<T> handler)
         {
             Type type = typeof(T);
-            if (_handlers.ContainsKey(type))
-                _handlers[type] = (Action<T>)_handlers[type] + callback;
+            if (_handlers.TryGetValue(type, out var existing))
+                _handlers[type] = Delegate.Combine(existing, handler);
             else
-                _handlers[type] = callback;
-            Logger.Logger.Debug($"订阅消息类型: {type.Name}");
+                _handlers[type] = handler;
+            Logger.Logger.Debug($"注册消息类型: {type.Name} ，其回调函数为 {handler.Method.Name}");
         }
 
         /// <summary>
-        /// 取消订阅
+        /// 取消注册接收到消息后的回调函数
         /// </summary>
         /// <typeparam name="T">消息类型</typeparam>
-        /// <param name="callback">要移除的回调函数</param>
-        public void Unsubscribe<T>(Action<T> callback) where T : RobotMessage
+        /// <param name="handler">要移除的回调函数</param>
+        public void Unregister<T>(Action<T> handler)
         {
             Type type = typeof(T);
-            if (_handlers.TryGetValue(type, out var del))
+            if (_handlers.TryGetValue(type, out var existing))
             {
                 // 从多播委托中移除回调
-                var newDel = (Action<T>)del - callback;
+                var newDel = Delegate.Remove(existing, handler);
                 if (newDel == null)
                     _handlers.Remove(type);
                 else
                     _handlers[type] = newDel;
-                Logger.Logger.Debug($"取消订阅消息类型: {type.Name}");
+                Logger.Logger.Debug($"取消注册消息类型: {type.Name} ，其回调函数为 {handler.Method.Name}");
             }
         }
 
         /// <summary>
         /// 发送消息
         /// </summary>
-        /// <typeparam name="T">RobotMessage 类型</typeparam>
-        /// <param name="message">消息内容</param>
-        public void Send<T> (T message) where T : RobotMessage
+        /// <param name="msg">消息内容</param>
+        /// <param name="topicName">话题名称</param>
+        public void Send(object msg, string topicName)
         {
-            Type type = typeof (T);
-            if (_handlers.TryGetValue(type, out var del))
+            if (msg == null) return;
+            Type runtimeType = msg.GetType();
+            if (_handlers.TryGetValue(runtimeType, out var del) && _subscribedTopics.Contains(topicName))
             {
-                var callback = del as Action<T>;
-                callback?.Invoke(message);
+                // DynamicInvoke 调用多播委托
+                del.DynamicInvoke(msg);
             }
+            else
+            {
+                Logger.Logger.Error($"未注册 {runtimeType.Name}", this);
+            }
+        }
+
+        /// <summary>
+        /// 添加订阅的话题，未建立连接时，进行暂存
+        /// </summary>
+        /// <param name="msg"></param>
+        public void SubscribeTopic(SubscribeMessage msg)
+        {
+            if (_subscribedTopics.Contains(msg.Topic))
+                return;   // 已订阅过，忽略
+            _subscribedTopics.Add(msg.Topic);
+            if (_connected)
+                SendSubscription(msg);
+            else
+                _pending.Add(msg);
+        }
+
+        /// <summary>
+        /// 连接建立后调用，发送所有暂存的订阅
+        /// </summary>
+        public void OnConnectionEstablished()
+        {
+            if (_connected) return;
+            _connected = true;
+            foreach (var msg in _pending)
+                SendSubscription(msg);
+            _pending.Clear();
+        }
+
+        /// <summary>
+        /// 发布订阅消息
+        /// </summary>
+        /// <param name="msg"></param>
+        private void SendSubscription(SubscribeMessage msg)
+        {
+            RosBridgeClient.Instance.SendSubscribeMessage(msg);
         }
     }
 }

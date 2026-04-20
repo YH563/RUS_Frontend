@@ -136,7 +136,7 @@ namespace SRC.Robot
         /// <returns>Transform3D 矩阵</returns>
         public static Transform3D XyzRpyToTransform(Vector3 xyz, Vector3 rpy)
         {
-            Vector3 godotPos = new Vector3(xyz.X, xyz.Z, xyz.Y);
+            Vector3 godotPos = new Vector3(xyz.X, xyz.Z, -xyz.Y);
             Basis basis = Basis.FromEuler(rpy);
             return new Transform3D(basis, godotPos);
         }
@@ -157,7 +157,7 @@ namespace SRC.Robot
             PackedScene modelScene = ResourceLoader.Load<PackedScene>(meshFilePath);
             if (modelScene == null)
             {
-                Logger.Logger.Error($"Failed to load model: {meshFilePath}");
+                Logger.Logger.Error($"无法找到模型文件: {meshFilePath}");
                 return null;
             }
             Node3D modelNode = modelScene.Instantiate<Node3D>();

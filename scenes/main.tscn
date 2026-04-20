@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://l3y17kqtscfu"]
 
 [ext_resource type="PackedScene" uid="uid://cx1tg37i7irwv" path="res://scenes/Robot/robot.tscn" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://cw46sx236peh0" path="res://scenes/UI/ui_main.tscn" id="2_0wfyh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 
@@ -11,18 +10,25 @@ sky_material = SubResource("ProceduralSkyMaterial_o5qli")
 [sub_resource type="Environment" id="Environment_sugp2"]
 background_mode = 2
 sky = SubResource("Sky_0wfyh")
+ambient_light_source = 2
+ambient_light_color = Color(0.9490196, 0.96862745, 0.9882353, 1)
+ambient_light_energy = 0.1
+ssao_enabled = true
+ssao_radius = 0.6
+ssao_intensity = 0.4
 
 [node name="Main" type="Node" unique_id=690435409]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=839347557]
-transform = Transform3D(0.3438728, 0.42558882, -0.83703387, 0, 0.89139444, 0.45322838, 0.9390163, -0.1558529, 0.30652627, -0.82594144, 0.46673268, 0.3359365)
+transform = Transform3D(1, 0, 0, 0, 0.9529688, 0.30306855, 0, -0.30306855, 0.9529688, -0.2910707, 0.44830453, 1.0715413)
+fov = 40.0
 
 [node name="Robot" parent="." unique_id=909925622 instance=ExtResource("1_o5qli")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=400785487]
-transform = Transform3D(1, 0, 0, 0, 0.6652955, 0.7465802, 0, -0.7465802, 0.6652955, 0, 0.93951374, 0.78314537)
+transform = Transform3D(0.76604444, 0.5566704, -0.32139376, 0, 0.49999997, 0.86602545, 0.6427876, -0.663414, 0.3830222, 0, 0.93951374, 0.3403396)
+light_color = Color(1, 0.9776916, 0.95468724, 1)
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1850258844]
 environment = SubResource("Environment_sugp2")
-
-[node name="UIMain" parent="." unique_id=1941909623 instance=ExtResource("2_0wfyh")]
