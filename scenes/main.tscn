@@ -3,6 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://cx1tg37i7irwv" path="res://scenes/Robot/robot.tscn" id="1_o5qli"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
+sky_top_color = Color(0.8392157, 0.91764706, 0.972549, 1)
+sky_horizon_color = Color(0.7833377, 0.7889722, 0.8002343, 1)
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+ground_energy_multiplier = 0.75
 
 [sub_resource type="Sky" id="Sky_0wfyh"]
 sky_material = SubResource("ProceduralSkyMaterial_o5qli")
@@ -11,24 +16,55 @@ sky_material = SubResource("ProceduralSkyMaterial_o5qli")
 background_mode = 2
 sky = SubResource("Sky_0wfyh")
 ambient_light_source = 2
-ambient_light_color = Color(0.9490196, 0.96862745, 0.9882353, 1)
+ambient_light_color = Color(0.8784314, 0.9490196, 0.99607843, 1)
 ambient_light_energy = 0.1
 ssao_enabled = true
 ssao_radius = 0.6
 ssao_intensity = 0.4
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_o5qli"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
+albedo_color = Color(0.641934, 0.641934, 0.641934, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o5qli"]
+
 [node name="Main" type="Node" unique_id=690435409]
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=839347557]
-transform = Transform3D(1, 0, 0, 0, 0.9529688, 0.30306855, 0, -0.30306855, 0.9529688, -0.2910707, 0.44830453, 1.0715413)
+transform = Transform3D(1, 0, 0, 0, 0.9033877, 0.42882478, 0, -0.42882478, 0.9033877, -0.036349416, 1.0598633, 1.1023538)
 fov = 40.0
 
 [node name="Robot" parent="." unique_id=909925622 instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.259, 0.568, -0.031)
+J1Angle = 21.039
+J2Angle = -29.805
+J3Angle = 117.328
+J4Angle = -185.844
+J5Angle = -78.896
+_jointAngles = PackedFloat32Array(21.039, -29.805, 117.328, -185.844, -78.896, 0)
+_lastJointAngles = PackedFloat32Array(21.039, -29.805, 117.328, -185.844, -78.896, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=400785487]
-transform = Transform3D(0.76604444, 0.5566704, -0.32139376, 0, 0.49999997, 0.86602545, 0.6427876, -0.663414, 0.3830222, 0, 0.93951374, 0.3403396)
-light_color = Color(1, 0.9776916, 0.95468724, 1)
+transform = Transform3D(0.7660445, 0.5566704, -0.32139376, 0, 0.49999997, 0.86602545, 0.64278764, -0.663414, 0.3830222, 0, 34.656853, 0.3403396)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1850258844]
 environment = SubResource("Environment_sugp2")
+
+[node name="Plane" type="MeshInstance3D" parent="." unique_id=87156542]
+transform = Transform3D(9.376814, 0, 0, 0, 1, 0, 0, 0, 10.307492, 0.5404614, -0.028130263, 0.13156864)
+mesh = SubResource("PlaneMesh_o5qli")
+surface_material_override/0 = SubResource("StandardMaterial3D_0wfyh")
+
+[node name="Box" type="MeshInstance3D" parent="Plane" unique_id=387286024]
+transform = Transform3D(0.013010816, 0, 0, 0, 0.59999996, 0, 0, 0, 0.01183605, -0.03001674, 0.2958059, -0.01577189)
+mesh = SubResource("BoxMesh_o5qli")
+
+[node name="Panel" type="Panel" parent="." unique_id=2074900797]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
