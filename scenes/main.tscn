@@ -37,13 +37,6 @@ fov = 40.0
 
 [node name="Robot" parent="." unique_id=909925622 instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.259, 0.568, -0.031)
-J1Angle = 21.039
-J2Angle = -29.805
-J3Angle = 117.328
-J4Angle = -185.844
-J5Angle = -78.896
-_jointAngles = PackedFloat32Array(21.039, -29.805, 117.328, -185.844, -78.896, 0)
-_lastJointAngles = PackedFloat32Array(21.039, -29.805, 117.328, -185.844, -78.896, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=400785487]
 transform = Transform3D(0.7660445, 0.5566704, -0.32139376, 0, 0.49999997, 0.86602545, 0.64278764, -0.663414, 0.3830222, 0, 34.656853, 0.3403396)
