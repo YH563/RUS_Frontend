@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://c8s48elstq5tx"]
+
+[ext_resource type="PackedScene" uid="uid://cx1tg37i7irwv" path="res://scenes/Robot/robot.tscn" id="1_c51nt"]
+[ext_resource type="PackedScene" uid="uid://nxb7y1ioe05j" path="res://scenes/UI/Camera/camera.tscn" id="2_lib6u"]
+[ext_resource type="Material" uid="uid://8vegrn64wotx" path="res://assets/Materials/grid.tres" id="3_u4p88"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lib6u"]
+sky_top_color = Color(0.8392157, 0.91764706, 0.972549, 1)
+sky_horizon_color = Color(0.7833377, 0.7889722, 0.8002343, 1)
+ground_bottom_color = Color(1, 1, 1, 1)
+ground_horizon_color = Color(1, 1, 1, 1)
+ground_energy_multiplier = 0.75
+
+[sub_resource type="Sky" id="Sky_0wfyh"]
+sky_material = SubResource("ProceduralSkyMaterial_lib6u")
+
+[sub_resource type="Environment" id="Environment_lix08"]
+background_mode = 2
+sky = SubResource("Sky_0wfyh")
+ambient_light_source = 2
+ambient_light_color = Color(0.8784314, 0.9490196, 0.99607843, 1)
+ambient_light_energy = 0.1
+ssao_enabled = true
+ssao_radius = 0.6
+ssao_intensity = 0.4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1kuib"]
+
+[node name="3DWindow" type="SubViewport" unique_id=1031240072]
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1320714038]
+
+[node name="Robot" parent="Node3D" unique_id=909925622 instance=ExtResource("1_c51nt")]
+metadata/_edit_group_ = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node3D" unique_id=281887904]
+transform = Transform3D(0.7660445, 0.5566704, -0.32139376, 0, 0.49999997, 0.86602545, 0.64278764, -0.663414, 0.3830222, 0, 34.656853, 0.3403396)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node3D" unique_id=45027975]
+environment = SubResource("Environment_lix08")
+
+[node name="CameraController" parent="." unique_id=79932374 instance=ExtResource("2_lib6u")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1969174474]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+material_override = ExtResource("3_u4p88")
+mesh = SubResource("PlaneMesh_1kuib")

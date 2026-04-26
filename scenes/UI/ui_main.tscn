@@ -1,6 +1,124 @@
 [gd_scene format=3 uid="uid://cw46sx236peh0"]
 
-[ext_resource type="PackedScene" uid="uid://bgqa1rvyt4mt7" path="res://scenes/UI/TopBar/top_bar.tscn" id="1_8hqj4"]
+[ext_resource type="Texture2D" uid="uid://df1a0rtw27ce1" path="res://assets/Icons/hospital-user-solid-full.svg" id="2_mmlt8"]
+[ext_resource type="PackedScene" uid="uid://c8s48elstq5tx" path="res://scenes/UI/3DWindow/3d_window.tscn" id="2_wya58"]
+[ext_resource type="Texture2D" uid="uid://c2vlir71cyppm" path="res://assets/Icons/arrow-pointer-solid-full.svg" id="3_7uxcp"]
+[ext_resource type="Texture2D" uid="uid://b8fe4emnclasc" path="res://assets/TestAssets/Images/ultrasound.jpg" id="3_41hhk"]
+[ext_resource type="ButtonGroup" uid="uid://drgv2vhhs1x85" path="res://assets/button_group.tres" id="3_bofht"]
+[ext_resource type="Theme" uid="uid://1vtd4coo2sry" path="res://assets/Themes/blue_white.tres" id="3_dcoux"]
+[ext_resource type="Texture2D" uid="uid://cax0iaefivjjh" path="res://assets/Icons/gear-solid-full.svg" id="3_ggqo8"]
+[ext_resource type="Texture2D" uid="uid://cxgfvi7lk5hf1" path="res://assets/Icons/play-solid-full.svg" id="3_jk7as"]
+[ext_resource type="Texture2D" uid="uid://l8t05ft7urdx" path="res://assets/Icons/pause-solid-full.svg" id="4_6beyc"]
+[ext_resource type="Texture2D" uid="uid://c23j5snshf1ac" path="res://assets/Icons/stop-solid-full.svg" id="5_mmlt8"]
+[ext_resource type="Texture2D" uid="uid://qaf7f07au6ab" path="res://assets/Icons/hand-regular-full.svg" id="5_r0sph"]
+[ext_resource type="Texture2D" uid="uid://b08aqev2hpqjq" path="res://assets/Icons/plus-solid-full.svg" id="5_vcyum"]
+[ext_resource type="Texture2D" uid="uid://do5855ums3g0f" path="res://assets/Icons/minus-solid-full.svg" id="6_gya8e"]
+[ext_resource type="Texture2D" uid="uid://d2csyglrqw0vp" path="res://assets/Icons/magnifying-glass-solid-full.svg" id="6_t0bee"]
+[ext_resource type="Texture2D" uid="uid://bik3jn1ut66vh" path="res://assets/Icons/pencil-solid-full.svg" id="7_t0bee"]
+[ext_resource type="Texture2D" uid="uid://bjhxvo5l8yg05" path="res://assets/Icons/尺子_o.svg" id="8_sutml"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcoux"]
+content_margin_left = 8.0
+content_margin_top = 0.0
+content_margin_right = 8.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_41hhk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+border_width_right = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uxcp"]
+content_margin_left = 8.0
+content_margin_top = 16.0
+content_margin_right = 8.0
+content_margin_bottom = 16.0
+bg_color = Color(0.9717755, 0.97177535, 0.97177535, 1)
+border_width_right = 2
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bofht"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ggqo8"]
+content_margin_left = 8.0
+content_margin_top = 16.0
+content_margin_right = 8.0
+content_margin_bottom = 16.0
+bg_color = Color(1, 1, 1, 1)
+border_width_right = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0sph"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.81960785, 0.8352941, 0.85882354, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jk7as"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmlt8"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+border_width_bottom = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6beyc"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wya58"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vs21t"]
+content_margin_left = 20.0
+content_margin_top = 16.0
+content_margin_right = 20.0
+content_margin_bottom = 16.0
+bg_color = Color(1, 1, 1, 1)
+border_width_top = 2
 
 [node name="UIMain" type="Control" unique_id=1941909623]
 layout_mode = 3
@@ -18,6 +136,584 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TopBar" parent="." unique_id=1173576524 instance=ExtResource("1_8hqj4")]
+[node name="BottomBar" type="PanelContainer" parent="." unique_id=1054534773]
 layout_mode = 1
-offset_right = -0.00012207031
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_dcoux")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dcoux")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomBar" unique_id=300515874]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BottomBar/HBoxContainer" unique_id=1133555104]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.32024416, 0.32024416, 0.32024413, 1)
+theme_override_font_sizes/font_size = 12
+text = "状态栏："
+
+[node name="TopBar" type="PanelContainer" parent="." unique_id=1192607290]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme = ExtResource("3_dcoux")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar" unique_id=1464071228]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="TopBar/HBoxContainer" unique_id=1356342462]
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "RUS 儒思超声机器人"
+
+[node name="OptionButton" type="OptionButton" parent="TopBar/HBoxContainer" unique_id=116780208]
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_colors/font_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+theme_override_colors/font_hover_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6117647, 0.6392157, 0.6862745, 1)
+selected = 0
+item_count = 1
+popup/item_0/text = "患者，某某某"
+popup/item_0/id = 0
+
+[node name="Label2" type="Label" parent="TopBar/HBoxContainer" unique_id=1442279362]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "主治医师：王建国"
+
+[node name="MainRegion" type="HBoxContainer" parent="." unique_id=944951007]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -334.0
+offset_bottom = 373.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="SideBar" type="PanelContainer" parent="MainRegion" unique_id=736080063]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/panel = SubResource("StyleBoxFlat_41hhk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/SideBar" unique_id=922799352]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PatientInformation" type="PanelContainer" parent="MainRegion/SideBar/VBoxContainer" unique_id=961703308]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_7uxcp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation" unique_id=617145346]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer" unique_id=311144950]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="TextureRect" type="TextureRect" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/HBoxContainer" unique_id=944258523]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_mmlt8")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/HBoxContainer" unique_id=283942683]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 15.0
+theme_override_colors/font_color = Color(0.25856677, 0.25856626, 0.25856647, 1)
+theme_override_font_sizes/font_size = 11
+text = "患者信息"
+
+[node name="GridContainer" type="GridContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer" unique_id=1483383379]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+columns = 2
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/GridContainer" unique_id=532516217]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.25882354, 0.25882354, 0.25882354, 1)
+theme_override_font_sizes/font_size = 11
+text = "性别：男"
+
+[node name="Label2" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/GridContainer" unique_id=1810985993]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.25882354, 0.25882354, 0.25882354, 1)
+theme_override_font_sizes/font_size = 11
+text = "年龄：45岁"
+
+[node name="Label3" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/GridContainer" unique_id=368285171]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.25882354, 0.25882354, 0.25882354, 1)
+theme_override_font_sizes/font_size = 11
+text = "身高：175cm"
+
+[node name="Label4" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/GridContainer" unique_id=1903174375]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.25882354, 0.25882354, 0.25882354, 1)
+theme_override_font_sizes/font_size = 11
+text = "BMI：24.2（正常）"
+
+[node name="PanelContainer" type="PanelContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer" unique_id=723115655]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bofht")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/PanelContainer" unique_id=1044279440]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/PanelContainer/VBoxContainer" unique_id=195748714]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "主诉症状："
+
+[node name="Label2" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/PanelContainer/VBoxContainer" unique_id=300693429]
+custom_minimum_size = Vector2(12, 5)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "右侧肩关节疼痛伴抬举受限3个月，夜间加重。"
+autowrap_mode = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer" unique_id=1742086456]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bofht")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/PanelContainer2" unique_id=2120257789]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=951313632]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "既往检查/诊断:"
+
+[node name="Label2" type="Label" parent="MainRegion/SideBar/VBoxContainer/PatientInformation/VBoxContainer/PanelContainer2/VBoxContainer" unique_id=766457158]
+custom_minimum_size = Vector2(12, 5)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "MRI显示右肩冈上肌腱变细，疑似部分撕裂。未见明显积液。"
+autowrap_mode = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MainRegion/SideBar/VBoxContainer" unique_id=1547233942]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ggqo8")
+
+[node name="RobotControl" type="VBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer" unique_id=1652183388]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=1388491271]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/HBoxContainer" unique_id=490274083]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ggqo8")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/HBoxContainer" unique_id=1710977019]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 11.0
+text = "超声机器人控制"
+
+[node name="Joint1" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=465151143]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button2" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint1" unique_id=2075873564]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("5_vcyum")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint1" unique_id=195228958]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+text = "关节 1 角度：0°"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint1" unique_id=313376092]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("6_gya8e")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Joint2" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=937372883]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button2" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint2" unique_id=1267472441]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("5_vcyum")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint2" unique_id=879769389]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+text = "关节 2 角度：0°"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint2" unique_id=259208741]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("6_gya8e")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Joint3" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=48210418]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button2" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint3" unique_id=981831751]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("5_vcyum")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint3" unique_id=994961905]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+text = "关节 3 角度：0°"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint3" unique_id=2114500866]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("6_gya8e")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Joint4" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=1475818107]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button2" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint4" unique_id=384582341]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("5_vcyum")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint4" unique_id=1748053585]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+text = "关节 4 角度：0°"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint4" unique_id=511007500]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("6_gya8e")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Joint5" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=1522161529]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button2" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint5" unique_id=295960185]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("5_vcyum")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint5" unique_id=741552054]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+text = "关节 5 角度：0°"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint5" unique_id=1361428867]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("6_gya8e")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Joint6" type="HBoxContainer" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl" unique_id=1199024084]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button2" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint6" unique_id=425806144]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("5_vcyum")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint6" unique_id=1378559557]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+text = "关节 6 角度：0°"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="MainRegion/SideBar/VBoxContainer/PanelContainer/RobotControl/Joint6" unique_id=655967372]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+icon = ExtResource("6_gya8e")
+icon_alignment = 1
+expand_icon = true
+
+[node name="WorkSpace" type="PanelContainer" parent="MainRegion" unique_id=669687634]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.5
+theme = ExtResource("3_dcoux")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jk7as")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/WorkSpace" unique_id=1030603623]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ToolBar" type="PanelContainer" parent="MainRegion/WorkSpace/VBoxContainer" unique_id=921903430]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme = ExtResource("3_dcoux")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmlt8")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer/ToolBar" unique_id=1300137228]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/ToolBar/HBoxContainer" unique_id=696374092]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+toggle_mode = true
+button_group = ExtResource("3_bofht")
+icon = ExtResource("3_7uxcp")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button2" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/ToolBar/HBoxContainer" unique_id=439263118]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+toggle_mode = true
+button_group = ExtResource("3_bofht")
+icon = ExtResource("5_r0sph")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button3" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/ToolBar/HBoxContainer" unique_id=1768140421]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+toggle_mode = true
+button_group = ExtResource("3_bofht")
+icon = ExtResource("6_t0bee")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button4" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/ToolBar/HBoxContainer" unique_id=1385004463]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+toggle_mode = true
+button_group = ExtResource("3_bofht")
+icon = ExtResource("7_t0bee")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button5" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/ToolBar/HBoxContainer" unique_id=1901113424]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("3_dcoux")
+theme_override_styles/normal = SubResource("StyleBoxFlat_r0sph")
+toggle_mode = true
+button_group = ExtResource("3_bofht")
+icon = ExtResource("8_sutml")
+icon_alignment = 1
+expand_icon = true
+
+[node name="RobotAndUltrasound" type="HBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer" unique_id=1266968402]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 16.0
+theme_override_constants/separation = 0
+
+[node name="RobotRegion" type="PanelContainer" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound" unique_id=526282084]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6beyc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound/RobotRegion" unique_id=1999278440]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="SubViewport" type="SubViewportContainer" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound/RobotRegion/VBoxContainer" unique_id=125068693]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 15.0
+stretch = true
+
+[node name="3DWindow" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound/RobotRegion/VBoxContainer/SubViewport" unique_id=1031240072 instance=ExtResource("2_wya58")]
+handle_input_locally = false
+size = Vector2i(559, 460)
+render_target_update_mode = 4
+
+[node name="UltrasoundRegion" type="PanelContainer" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound" unique_id=637681439]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wya58")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound/UltrasoundRegion" unique_id=1175722175]
+layout_mode = 2
+
+[node name="UltrasoundImage" type="TextureRect" parent="MainRegion/WorkSpace/VBoxContainer/RobotAndUltrasound/UltrasoundRegion/VBoxContainer" unique_id=1464681190]
+custom_minimum_size = Vector2(520, 460)
+layout_mode = 2
+texture = ExtResource("3_41hhk")
+expand_mode = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MainRegion/WorkSpace/VBoxContainer" unique_id=1582217862]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vs21t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer" unique_id=1983061189]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Progress" type="VBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer" unique_id=1599947823]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme = ExtResource("3_dcoux")
+
+[node name="Label" type="Label" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer/Progress" unique_id=1694719530]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/font_size = 20
+text = "当前扫查任务进度："
+
+[node name="ProgressBar" type="ProgressBar" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer/Progress" unique_id=198389682]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.8
+theme = ExtResource("3_dcoux")
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer" unique_id=71623431]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 80
+
+[node name="Start" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1236059426]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_font_sizes/font_size = 20
+text = "启动"
+icon = ExtResource("3_jk7as")
+expand_icon = true
+
+[node name="Pause" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1287732242]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_font_sizes/font_size = 20
+text = "暂停"
+icon = ExtResource("4_6beyc")
+expand_icon = true
+
+[node name="Stop" type="Button" parent="MainRegion/WorkSpace/VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer" unique_id=248506161]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("3_dcoux")
+theme_override_font_sizes/font_size = 20
+text = "停止"
+icon = ExtResource("5_mmlt8")
+expand_icon = true

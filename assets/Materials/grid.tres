@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://8vegrn64wotx"]
+
+[ext_resource type="Shader" uid="uid://dfax7r0uq3xgy" path="res://assets/Shaders/grid.gdshader" id="1_lwr8e"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_lwr8e")
+shader_parameter/gridColor = Color(0.3, 0.3, 0.4, 1)
+shader_parameter/majorColor = Color(1, 1, 1, 0.8)
+shader_parameter/fadeStart = 5.0
+shader_parameter/fadeEnd = 30.0
+shader_parameter/unitSize = 1.0
+shader_parameter/subdivisions = 5
+shader_parameter/majorLineThickness = 2.0
+shader_parameter/minorLineThickness = 1.0
+shader_parameter/minorLineAlpha = 0.3
+shader_parameter/centerOffset = Vector3(0, 0, 0)

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dgod7sjxj2f0y" path="res://src/UI/Camera/CameraInputControl.cs" id="1_fu73a"]
 
-[node name="Camera" type="Node3D" unique_id=79932374]
+[node name="CameraController" type="Node3D" unique_id=79932374]
 script = ExtResource("1_fu73a")
+RotationSpeed = 25.0
 
-[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1310765623]
-
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=6370943]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1228774347]
+transform = Transform3D(0.70710677, 0.24184474, -0.66446304, 0, 0.9396926, 0.34202012, 0.70710677, -0.24184474, 0.66446304, -1, 0.8, 1)
